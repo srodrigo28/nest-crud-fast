@@ -62,6 +62,13 @@ npx nest g resource produto
 npx nest g service prisma --flat --no-spec
 ```
 
+#### caso use o git clone clone
+* 1. membrar do .env-exempo
+* 2. mebrar do prisma
+```
+npx prisma migrate dev
+```
+
 #### Ref.
 ```
 https://www.youtube.com/watch?v=aouatZu9QiU
