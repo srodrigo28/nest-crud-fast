@@ -14,9 +14,9 @@ model Produto{
   id        Int @id @default(autoincrement())
   nome      String @unique
   descricao String 
-  preco     String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  preco     Float
+  // createdAt DateTime @default(now())
+  // updatedAt DateTime @updatedAt
 
   @@map("produto")
 }

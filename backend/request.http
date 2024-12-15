@@ -1,0 +1,11 @@
+GET http://localhost:3001/produto
+
+###
+POST http://localhost:3001/produto
+Content-Type: application/json
+
+{
+    "nome": "coca cola lata",
+    "descricao": "Coca lata 350ml o sabor do natal",
+    "preco": 5
+}
