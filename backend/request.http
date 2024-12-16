@@ -1,11 +1,30 @@
 GET http://localhost:3001/produto
 
 ###
+
+GET http://localhost:3001/produto/3
+
+###
+
 POST http://localhost:3001/produto
 Content-Type: application/json
 
 {
-    "nome": "coca cola lata",
-    "descricao": "Coca lata 350ml o sabor do natal",
-    "preco": 5
+    "nome": "Camisa",
+    "descricao": "camisa jeans 2024",
+    "preco": 120
 }
+
+###
+
+PATCH  http://localhost:3001/produto/1
+Content-Type: application/json
+
+{
+    "nome": "coca2 cola lata"
+}
+
+###
+
+DELETE   http://localhost:3001/produto/1
+Content-Type: application/json
