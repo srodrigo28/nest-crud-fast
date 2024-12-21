@@ -1,11 +1,9 @@
 GET http://localhost:3001/produto
 
 ###
-
 GET http://localhost:3001/produto/3
 
 ###
-
 POST http://localhost:3001/produto
 Content-Type: application/json
 

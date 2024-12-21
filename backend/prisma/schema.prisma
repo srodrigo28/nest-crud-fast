@@ -5,23 +5,24 @@ generator client {
   provider = "prisma-client-js"
 }
 
-// datasource db {
-//   provider = "sqlite"
-//   url      = env("DATABASE_URL")
-// }
-
 datasource db {
-  provider = "mysql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
+
+// datasource db {
+//   provider = "mysql"
+//   url      = env("DATABASE_URL")
+// }
 
 model Produto{
   id        Int @id @default(autoincrement())
   nome      String @unique
   descricao String 
   preco     Float
-  // createdAt DateTime @default(now())
-  // updatedAt DateTime @updatedAt
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("produto")
 }
