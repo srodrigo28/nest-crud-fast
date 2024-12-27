@@ -1,43 +1,43 @@
-> ### <h1 style="text-center"> Iniciando Frontend </h1>
+#### 1. Criar aplicação
+* No diretório src/ apagar os arquivos
+    app.controller.spec.ts
+    app.service.ts
 
-> ### capitulo 01 <h2 style="text-center"> Iniciando Backend NestJS </h2> </br> <hr />
-* <b>00</b> instalação global
-``` ok
-npm install -g @nestjs/cli
+#### 2. Permitir o cors
+* No diretório src/main.ts
+```
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
+
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule, {cors: true});
+  await app.listen(process.env.PORT ?? 3000);
+}
+bootstrap();
 ```
 
-* <b>01</b> criando o projeto
-``` ok
-npx nest new backend
-```
+#### 3. Instalar o prisma Provider
 
-* <b>02</b> entrando na pasta backend
-``` ok
-cd backend
-```
-
-> ### capitulo 02 <h2 style="text-center"> Iniciando Prisma </h2> </br> <hr />
-
-* <b>03</b> criando o projeto cd apps/backend
+* <b>01</b> criando o projeto cd apps/backend
 ```ok
 npm install prisma -D
 ```
 
-*<b>04</b> Methodo de conexão banco de Dados iniciando projeto sqlite
-```ok
+*<b>02</b> Methodo de conexão banco de Dados iniciando projeto sqlite
+```
 npx prisma init --datasource-provider sqlite
 ```
 || <br>
-```
+```ok
 npx prisma init --datasource-provider mysql
 ```
-* <b>05</b> Dentro da pasta prisma/shema.prisma
+* <b>03</b> Dentro da pasta prisma/shema.prisma
 ``` ok
 model Produto{
   id        Int @id @default(autoincrement())
   nome      String @unique
   descricao String 
-  preco     String
+  preco     Float
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -46,7 +46,14 @@ model Produto{
 }
 ```
 
-* <b>06</b> Rodando nosso primeiro migrate criando a tabela
+* <b>04</b> Arquivo .env gerado automáticamente configurar de acordo com o banco
+
+<i> Nesse exemplo de conexão com mysql usuario:root,sem-senha@localhost:3306/banco__criado__ou__criar </i>
+```
+DATABASE_URL="mysql://root:@localhost:3306/api__02"
+```
+
+* <b>05</b> Rodando nosso primeiro migrate criando a tabela
 ``` ok
 npx prisma migrate dev
 ```
@@ -56,54 +63,137 @@ npx prisma migrate dev
 npm i prisma@6.1.0 -D --silent
 ```
 
-> ### capitulo 03 <h2 style="text-center"> Migrade sincronizando tabelas </h2> </br> <hr />
-
-* Rodando projeto no terminal
-```
-npm run start:dev
+<b> Opcional caso queira dar uma olhadinha usando o prisma studio </b>
+``` ok Prisma
+npx npx prisma studio
 ```
 
-> ### Capitulo 04 <h2 style="text-center"> Começando Modulos etcs </h2> </br> <hr />
-...
-> ### Capitulo 05 <h2 style="text-center"> Testando API Endpoints </h2> </br> <hr />
+#### 4. Instar os modulo DB
 
-* <b> Post </b> Cadastrar novo
+> ##### 4.1 criando no nosso modulo de conexão
 ```
-http://localhost:3001/produto
+npx nest g module db
 ```
-body
+
+> * entrar na pasta db
 ```
-{
-  "nome": "Camisa",
-  "descricao": "camisa jeans 2024",
-  "preco": 120
+cd src/db
+```
+
+> * entrar na pasta db
+```
+npx nest g service prisma --flat --no-spec
+```
+
+> ##### 4.2 entrar na src/db/db.module.ts
+```
+import { Module } from '@nestjs/common';
+import { PrismaService } from './prisma.service';
+
+@Module({
+  providers: [PrismaService],
+  exports: [PrismaService]
+})
+export class DbModule {}
+```
+
+> ##### 4.3 entrar na src/db/prisma.service.ts
+```
+import { Global, Injectable, OnModuleInit } from '@nestjs/common';
+import { PrismaClient } from '@prisma/client';
+
+@Global()
+@Injectable()
+export class PrismaService extends PrismaClient implements OnModuleInit {
+    async onModuleInit() {
+        await this.$connect();
+    }
 }
 ```
 
-* <b> Get </b> Listar todos 
+#### 5. Criar e Implentar Resource Produto Entidades
 ```
-http://localhost:3001/produto
+npx nest g resource produto --no-spec
 ```
+* Criando 
+* produto.controller.ts,
+* produto.module.ts, 
+* produto.service.ts
 
-* <b> Get Id</b> Unico Item
+##### 5.1 entrar na src/produto/dto/
+* create.produto.dto.ts
 ```
-http://localhost:3001/produto/:id
-```
+export interface CreateProdutoDto {
+    nome: string
+    descricao: string
+    preco: number
+}
 
-* <b> Delete Id </b> Apagar por id
 ```
-http://localhost:3001/produto/:id
+##### 5.2 entrar na src/produto/dto/
+* update-produto.dto.ts
 ```
+import { CreateProdutoDto } from './create-produto.dto';
 
-* <b> Put Id </b> Editar por id
-```
-http://localhost:3001/produto/:id
-```
-body
-```
-{
-  "nome": "Camisa",
-  "descricao": "camisa jeans 2024",
-  "preco": 120
+export interface UpdateProdutoDto extends Partial<CreateProdutoDto> {
+    id: number
 }
 ```
+##### 5.3 entrar na src/produto/
+* produto.module.ts
+```
+import { Module } from '@nestjs/common';
+import { ProdutoService } from './produto.service';
+import { ProdutoController } from './produto.controller';
+import { DbModule } from 'src/db/db.module';
+
+@Module({
+  imports: [DbModule],
+  controllers: [ProdutoController],
+  providers: [ProdutoService],
+})
+export class ProdutoModule {}
+
+```
+* produto.service.ts
+```
+import { Injectable } from '@nestjs/common';
+import { CreateProdutoDto } from './dto/create-produto.dto';
+import { UpdateProdutoDto } from './dto/update-produto.dto';
+import { PrismaService } from 'src/db/prisma.service';
+
+@Injectable()
+export class ProdutoService {
+  constructor( private readonly prismaService: PrismaService ){}
+
+  create(createProdutoDto: CreateProdutoDto) {
+    return this.prismaService.produto.create({
+      data: createProdutoDto,
+    });
+  }
+
+  findAll() {
+    return this.prismaService.produto.findMany();
+  }
+
+  findOne(id: number) {
+    return this.prismaService.produto.findUnique({
+      where: { id },
+    });
+  }
+
+  update(id: number, updateProdutoDto: UpdateProdutoDto) {
+    return this.prismaService.produto.update({
+      where: { id },
+      data: updateProdutoDto,
+    });
+  }
+
+  remove(id: number) {
+    return this.prismaService.produto.delete({
+      where: { id },
+    });
+  }
+}
+```
+* ( já vem pre configurado )  produto.controller.ts
