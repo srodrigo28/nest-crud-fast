@@ -88,7 +88,7 @@ npm i prisma@6.1.0 -D --silent
 
 <b> Opcional caso queira dar uma olhadinha usando o prisma studio </b>
 ``` ok Prisma
-npx npx prisma studio
+npx prisma studio
 ```
 
 #### 4. Instar os modulo DB
@@ -135,6 +135,12 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
 ```
 
 #### 5. Criar e Implentar Resource Produto Entidades
+* voltar para o diretorio do projeto
+```
+cd .. cd ..
+```
+
+* agora sim gerar o resource
 ```
 npx nest g resource produto --no-spec
 ```
@@ -152,7 +158,6 @@ export interface CreateProdutoDto {
     descricao: string
     preco: number
 }
-
 ```
 ##### 5.2 entrar na src/produto/dto/
 * update-produto.dto.ts
@@ -224,7 +229,7 @@ export class ProdutoService {
 ```
 import { Module } from '@nestjs/common';
 import { DbModule } from './db/db.module';
-import { ProdutoModule } from './db/produto/produto.module';
+import { ProdutoModule } from './produto/produto.module';
 
 @Module({
   imports: [DbModule, ProdutoModule],
