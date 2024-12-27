@@ -16,7 +16,7 @@ npx nest new backend
 cd backend
 ```
 
-> #### <h2 style="text-center"> Iniciando Prisma </h2
+> #### <h2 style="text-center"> Iniciando Prisma </h2>
 
 * <b>03</b> criando o projeto cd apps/backend
 ```ok
@@ -56,15 +56,15 @@ npx prisma migrate dev
 npm i prisma@6.1.0 -D --silent
 ```
 
-> #### <h2 style="text-center"> Migrade sincronizando tabelas </h2
+> #### <h2 style="text-center"> Migrade sincronizando tabelas </h2>
 > 
-#### <h2 style="text-center"> Rodando projeto </h2
+#### <h2 style="text-center"> Rodando projeto </h2>
 * no terminal
 ```
 npm run start:dev
 ```
 
-> #### Capitulo 05 <h2 style="text-center"> Iniciando Backend </h2
+> #### Capitulo 05 <h2 style="text-center"> Iniciando Backend </h2>
 
 * <b> Post </b> Cadastrar novo
 ```
