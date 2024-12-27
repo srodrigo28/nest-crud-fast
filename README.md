@@ -1,29 +1,29 @@
 > ### Iniciando Frontend
 
-> ### Iniciando backend
-* instalação global
+> ### Capitulo 01 Iniciando backend
+* <b>00</b> instalação global
 ``` ok
 npm install -g @nestjs/cli
 ```
 
-* criando o projeto
+* <b>01</b> criando o projeto
 ``` ok
 npx nest new backend
 ```
 
-* entrando na pasta backend
+* <b>02</b> entrando na pasta backend
 ``` ok
 cd backend
 ```
 
-> ### instalando o prisma
+> ### Capitulo 02 instalando o prisma
 
-* criando o projeto cd apps/backend
+* <b>03</b> criando o projeto cd apps/backend
 ```ok
 npm install prisma -D
 ```
 
-* iniciando projeto sqlite
+*<b>04</b> Methodo de conexão banco de Dados iniciando projeto sqlite
 ```ok
 npx prisma init --datasource-provider sqlite
 ```
@@ -31,13 +31,14 @@ npx prisma init --datasource-provider sqlite
 ```
 npx prisma init --datasource-provider mysql
 ```
-* dentro da pasta prisma/shema.prisma
+* <b>05</b> Dentro da pasta prisma/shema.prisma
 ``` ok
 model Produto{
   id        Int @id @default(autoincrement())
   nome      String @unique
   descricao String 
   preco     String
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -45,30 +46,30 @@ model Produto{
 }
 ```
 
-* rodando nosso primeiro migrate criando a tabela
+* <b>06</b> Rodando nosso primeiro migrate criando a tabela
 ``` ok
 npx prisma migrate dev
 ```
 
-<b>Caso der Error :( </b>
+<b> Opcional Caso der Error </b>
 ``` ok Prisma
 npm i prisma@6.1.0 -D --silent
 ```
 
-> ### Iniciando backend já configurado com tabela
+> ### Capitulo 03 Iniciando backend já configurado com tabela
 
-* Criando primeiro modulo
+* <b> 07 </b> Criando primeiro modulo
 ``` ok
 npx nest g module db
 ```
 
-* criando resorce api
+* <b> 08 </b> Criando resorce api
 * marcar rest api
 ```
-npx nest g resource produto
+npx nest g resource produto --no-spec
 ```
 
-* Criando serviceDB entrar na pasta src/db
+* <b> 08 </b> Criando serviceDB entrar na pasta src/db
 ```
 npx nest g service prisma --flat --no-spec
 ```
@@ -80,12 +81,13 @@ npx nest g service prisma --flat --no-spec
 npx prisma migrate dev
 ```
 
-> ### Rodando o Projeto
+> ### Capitulo 04 Rodando o Projeto
 * no terminal
 ```
 npm run dev
 ```
-> ### Entidades Rotas
+
+> ### Capitulo 05 Entidades Rotas
 
 * <b> Post </b> Cadastrar novo
 ```
