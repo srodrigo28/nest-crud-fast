@@ -1,6 +1,6 @@
 > #### <h1 style="text-center"> Iniciando Frontend </h1>
 
-> #### capitulo 01 <h2 style="text-center"> Iniciando Backend NestJS </h2>
+> ##### capitulo 01 <h2 style="text-center"> Iniciando Backend NestJS </h2>
 * <b>00</b> instalação global
 ``` ok
 npm install -g @nestjs/cli
@@ -16,7 +16,7 @@ npx nest new backend
 cd backend
 ```
 
-> #### capitulo 02 <h2 style="text-center"> Iniciando Prisma </h2>
+> ##### capitulo 02 <h2 style="text-center"> Iniciando Prisma </h2>
 
 * <b>03</b> criando o projeto cd apps/backend
 ```ok
@@ -56,16 +56,16 @@ npx prisma migrate dev
 npm i prisma@6.1.0 -D --silent
 ```
 
-> #### capitulo 03 <h2 style="text-center"> Migrade sincronizando tabelas </h2>
+> ##### capitulo 03 <h2 style="text-center"> Migrade sincronizando tabelas </h2>
 > 
 
-> #### capitulo 04 <h2 style="text-center"> Rodando projeto </h2>
+> ##### capitulo 04 <h2 style="text-center"> Rodando projeto </h2>
 * no terminal
 ```
 npm run start:dev
 ```
 
-> #### Capitulo 05 <h2 style="text-center"> Iniciando Backend </h2>
+> ##### Capitulo 05 <h2 style="text-center"> Iniciando Backend </h2>
 
 * <b> Post </b> Cadastrar novo
 ```
@@ -106,9 +106,4 @@ body
   "descricao": "camisa jeans 2024",
   "preco": 120
 }
-```
-
-##### Ref.
-```
-https://www.youtube.com/watch?v=aouatZu9QiU
 ```
