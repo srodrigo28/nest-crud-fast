@@ -1,6 +1,6 @@
 > ### Iniciando Frontend
 
-> ### Capitulo 01 Iniciando backend
+> #### Capitulo 01 Iniciando backend
 * <b>00</b> instalação global
 ``` ok
 npm install -g @nestjs/cli
@@ -16,7 +16,7 @@ npx nest new backend
 cd backend
 ```
 
-> ### Capitulo 02 instalando o prisma
+> #### Capitulo 02 instalando o prisma
 
 * <b>03</b> criando o projeto cd apps/backend
 ```ok
@@ -56,7 +56,7 @@ npx prisma migrate dev
 npm i prisma@6.1.0 -D --silent
 ```
 
-> ### Capitulo 03 Iniciando backend já configurado com tabela
+> #### Capitulo 03 Iniciando backend já configurado com tabela
 
 * <b> 07 </b> Criando primeiro modulo
 ``` ok
@@ -74,20 +74,20 @@ npx nest g resource produto --no-spec
 npx nest g service prisma --flat --no-spec
 ```
 
-> #### caso use o git clone clone
+> ##### caso use o git clone clone
 * 1. membrar do .env-exempo
 * 2. mebrar do prisma
 ```
 npx prisma migrate dev
 ```
 
-> ### Capitulo 04 Rodando o Projeto
+> #### Capitulo 04 Rodando o Projeto
 * no terminal
 ```
 npm run dev
 ```
 
-> ### Capitulo 05 Entidades Rotas
+> #### Capitulo 05 Entidades Rotas
 
 * <b> Post </b> Cadastrar novo
 ```
@@ -130,7 +130,7 @@ body
 }
 ```
 
-#### Ref.
+##### Ref.
 ```
 https://www.youtube.com/watch?v=aouatZu9QiU
 ```
