@@ -1,7 +1,12 @@
 #### 1. Criar aplicação
+* criando projeto no terminal
+```
+npx nest new app2
+```
+
 * No diretório src/ apagar os arquivos
-    app.controller.spec.ts
-    app.service.ts
+* app.controller.spec.ts
+* app.service.ts
 
 #### 2. Permitir o cors
 * No diretório src/main.ts
