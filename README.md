@@ -7,6 +7,19 @@ npx nest new app2
 * No diretório src/ apagar os arquivos
 * app.controller.spec.ts
 * app.service.ts
+* app.controller.ts
+
+* Exemplo ( atualizar ) src/app.module.ts
+```
+import { Module } from '@nestjs/common';
+
+@Module({
+  imports: [],
+  controllers: [],
+  providers: [],
+})
+export class AppModule {}
+```
 
 #### 2. Permitir o cors
 * No diretório src/main.ts
