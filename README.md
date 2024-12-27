@@ -1,4 +1,4 @@
-#### 1. Criar aplicação
+> #### 1. Criar aplicação
 * criando projeto no terminal
 ```
 npx nest new app2
@@ -21,7 +21,7 @@ import { Module } from '@nestjs/common';
 export class AppModule {}
 ```
 
-#### 2. Permitir o cors
+> #### 2. Permitir o cors
 * No diretório src/main.ts
 ```
 import { NestFactory } from '@nestjs/core';
@@ -69,6 +69,11 @@ model Produto{
 <i> Nesse exemplo de conexão com mysql usuario:root,sem-senha@localhost:3306/banco__criado__ou__criar </i>
 ```
 DATABASE_URL="mysql://root:@localhost:3306/api__02"
+```
+
+* exemplo 2
+```
+DATABASE_URL="mysql://root:@localhost:3306/appi0101"
 ```
 
 * <b>05</b> Rodando nosso primeiro migrate criando a tabela
@@ -134,8 +139,9 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
 npx nest g resource produto --no-spec
 ```
 * Criando 
-* produto.controller.ts,
-* produto.module.ts, 
+* <b> ( Apagar a pasta Entity ) </b>
+* <b> ( Não mexer )  produto.controller.ts, </b>
+* produto.module.ts,
 * produto.service.ts
 
 ##### 5.1 entrar na src/produto/dto/
@@ -171,7 +177,6 @@ import { DbModule } from 'src/db/db.module';
   providers: [ProdutoService],
 })
 export class ProdutoModule {}
-
 ```
 * produto.service.ts
 ```
@@ -214,4 +219,22 @@ export class ProdutoService {
   }
 }
 ```
-* ( já vem pre configurado )  produto.controller.ts
+
+##### 5.4 atualizar src/app.module.ts
+```
+import { Module } from '@nestjs/common';
+import { DbModule } from './db/db.module';
+import { ProdutoModule } from './db/produto/produto.module';
+
+@Module({
+  imports: [DbModule, ProdutoModule],
+  controllers: [],
+  providers: [],
+})
+export class AppModule {}
+```
+
+> #### 6. rodando o projeto
+```
+npm run start:dev
+```
