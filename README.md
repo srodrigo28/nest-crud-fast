@@ -49,7 +49,8 @@ bootstrap();
 npm install prisma -D
 ```
 
-* <b>4.2</b> Methodo de conexão banco de Dados iniciando projeto sqlite
+* <b>4.2</b> Methodo de conexão banco de Dados 
+* Iniciando projeto sqlite
 ```
 npx prisma init --datasource-provider sqlite
 ```
@@ -69,7 +70,8 @@ model Produto{
 }
 ```
 
-* <b>4.3.1 Observação </b> Arquivo .env gerado automáticamente configurar de acordo com o banco
+* <b>4.3.1 Observação </b> Arquivo .env gerando 
+* Automáticamente configurar de acordo com o banco
 
 > ##### 4.3.2 <b> Opcional Caso der Error </b>
 ``` ok Prisma
@@ -81,26 +83,24 @@ npm i prisma@6.1.0 -D --silent
 npx prisma migrate dev
 ```
 
-> #### 5. NestJS Instar os modulo DB
+> #### 5. NestJS criando no nosso modulo de conexão
 
-> #### 6. NestJS criando no nosso modulo de conexão
-
-* <b>6.1</b> criando conexão com o banco de dados
+* <b>5.1</b> criando conexão com o banco de dados
 ```
 npx nest g module db
 ```
 
-> <b>6.2</b> * entrar na pasta db
+> <b>5.2</b> * entrar na pasta db
 ```
 cd src/db
 ```
 
-> <b>6.3</b> * criar o service para o prisma
+> <b>5.3</b> * criar o service para o prisma
 ```
 npx nest g service prisma --flat --no-spec
 ```
 
-* <b>6.4</b> entrar na src/db/db.module.ts editar
+* <b>5.4</b> entrar na src/db/db.module.ts editar
 ```
 import { Module } from '@nestjs/common';
 import { PrismaService } from './prisma.service';
@@ -112,9 +112,9 @@ import { PrismaService } from './prisma.service';
 export class DbModule {}
 ```
 
-> ##### 6.5 Editar o Service do Prisma 
+> ##### 5.5 Editar o Service do Prisma 
 
-* <b>6.5.1</b> entrar na src/db/prisma.service.ts
+* <b>5.5.1</b> entrar na src/db/prisma.service.ts
 ```
 import { Global, Injectable, OnModuleInit } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
@@ -128,7 +128,8 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
 }
 ```
 
-> #### 7. NestJS Criar e Implentar Resource Produto
+> #### 6. NestJS Criar e Implentar Resource Produto
+
 * voltar para o diretorio do projeto
 ```
 cd .. cd ..
@@ -146,7 +147,7 @@ npx nest g resource produto --no-spec
 * produto.service.ts
 * Dto
 
-> ##### 7.1 Vamos começar editando nosso modelo de produto
+> ##### 6.1 Vamos começar editando nosso modelo de produto
 
 * create.produto.dto.ts
 ```
@@ -166,7 +167,7 @@ export interface UpdateProdutoDto extends Partial<CreateProdutoDto> {
 }
 ```
 
-> ##### 7.2 Atualizando Modulo
+> ##### 6.2 Atualizando Modulo
 
 * produto.module.ts
 ```
@@ -183,7 +184,7 @@ import { DbModule } from 'src/db/db.module';
 export class ProdutoModule {}
 ```
 
-> ##### 7.3 Atualizando Modulo
+> ##### 6.3 Atualizando Service Produto
 
 * produto.service.ts
 ```
@@ -227,7 +228,7 @@ export class ProdutoService {
 }
 ```
 
-##### 7.4 atualizar src/app.module.ts
+> ##### 6.4 atualizar src/app.module.ts
 ```
 import { Module } from '@nestjs/common';
 import { DbModule } from './db/db.module';
@@ -241,12 +242,12 @@ import { ProdutoModule } from './produto/produto.module';
 export class AppModule {}
 ```
 
-> #### 8. NestJS rodando o projeto
+> #### 7. NestJS rodando o projeto
 ```
 npm run start:dev
 ```
 
-#### Observações Opcionais
+> #### 8. Observações Opcionais
 
 * Conexão com mysql
 ```
