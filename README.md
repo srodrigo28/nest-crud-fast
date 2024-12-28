@@ -1,7 +1,12 @@
-> #### 1. Criar aplicação
+> #### 1. NestJS Criar aplicação
 * criando projeto no terminal
 ```
-npx nest new app2
+npx nest new backend
+```
+
+* entrar no diretório
+```
+cd backend
 ```
 
 * No diretório src/ apagar os arquivos
@@ -9,7 +14,9 @@ npx nest new app2
 * app.service.ts
 * app.controller.ts
 
-* Exemplo ( atualizar ) src/app.module.ts
+> #### 2. NestJS ( atualizar )
+
+* src/app.module.ts
 ```
 import { Module } from '@nestjs/common';
 
@@ -21,7 +28,8 @@ import { Module } from '@nestjs/common';
 export class AppModule {}
 ```
 
-> #### 2. Permitir o cors
+> #### 3. NestJS Permitir o cors
+
 * No diretório src/main.ts
 ```
 import { NestFactory } from '@nestjs/core';
@@ -34,22 +42,19 @@ async function bootstrap() {
 bootstrap();
 ```
 
-#### 3. Instalar o prisma Provider
+> #### 4. Prisma ORM Instalar
 
-* <b>01</b> criando o projeto cd apps/backend
+* <b>4.1</b> criando o projeto cd apps/backend
 ```ok
 npm install prisma -D
 ```
 
-*<b>02</b> Methodo de conexão banco de Dados iniciando projeto sqlite
+* <b>4.2</b> Methodo de conexão banco de Dados iniciando projeto sqlite
 ```
 npx prisma init --datasource-provider sqlite
 ```
-|| <br>
-```ok
-npx prisma init --datasource-provider mysql
-```
-* <b>03</b> Dentro da pasta prisma/shema.prisma
+
+* <b>4.3</b> Dentro da pasta prisma/shema.prisma
 ``` ok
 model Produto{
   id        Int @id @default(autoincrement())
@@ -64,51 +69,38 @@ model Produto{
 }
 ```
 
-* <b>04</b> Arquivo .env gerado automáticamente configurar de acordo com o banco
+* <b>4.3.1 Observação </b> Arquivo .env gerado automáticamente configurar de acordo com o banco
 
-<i> Nesse exemplo de conexão com mysql usuario:root,sem-senha@localhost:3306/banco__criado__ou__criar </i>
-```
-DATABASE_URL="mysql://root:@localhost:3306/api__02"
-```
-
-* exemplo 2
-```
-DATABASE_URL="mysql://root:@localhost:3306/appi0101"
-```
-
-* <b>05</b> Rodando nosso primeiro migrate criando a tabela
-``` ok
-npx prisma migrate dev
-```
-
-<b> Opcional Caso der Error </b>
+> ##### 4.3.2 <b> Opcional Caso der Error </b>
 ``` ok Prisma
 npm i prisma@6.1.0 -D --silent
 ```
 
-<b> Opcional caso queira dar uma olhadinha usando o prisma studio </b>
-``` ok Prisma
-npx prisma studio
+> ##### 4.4 Rodando nosso primeiro migrate criando a tabela
+``` ok
+npx prisma migrate dev
 ```
 
-#### 4. Instar os modulo DB
+> #### 5. NestJS Instar os modulo DB
 
-> ##### 4.1 criando no nosso modulo de conexão
+> #### 6. NestJS criando no nosso modulo de conexão
+
+* <b>6.1</b> criando conexão com o banco de dados
 ```
 npx nest g module db
 ```
 
-> * entrar na pasta db
+> <b>6.2</b> * entrar na pasta db
 ```
 cd src/db
 ```
 
-> * entrar na pasta db
+> <b>6.3</b> * criar o service para o prisma
 ```
 npx nest g service prisma --flat --no-spec
 ```
 
-> ##### 4.2 entrar na src/db/db.module.ts
+* <b>6.4</b> entrar na src/db/db.module.ts editar
 ```
 import { Module } from '@nestjs/common';
 import { PrismaService } from './prisma.service';
@@ -120,7 +112,9 @@ import { PrismaService } from './prisma.service';
 export class DbModule {}
 ```
 
-> ##### 4.3 entrar na src/db/prisma.service.ts
+> ##### 6.5 Editar o Service do Prisma 
+
+* <b>6.5.1</b> entrar na src/db/prisma.service.ts
 ```
 import { Global, Injectable, OnModuleInit } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
@@ -134,7 +128,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
 }
 ```
 
-#### 5. Criar e Implentar Resource Produto Entidades
+> #### 7. NestJS Criar e Implentar Resource Produto
 * voltar para o diretorio do projeto
 ```
 cd .. cd ..
@@ -144,13 +138,16 @@ cd .. cd ..
 ```
 npx nest g resource produto --no-spec
 ```
-* Criando 
+
+* Agora foi gerado automáticamente os arquivos 
 * <b> ( Apagar a pasta Entity ) </b>
 * <b> ( Não mexer )  produto.controller.ts, </b>
 * produto.module.ts,
 * produto.service.ts
+* Dto
 
-##### 5.1 entrar na src/produto/dto/
+> ##### 7.1 Vamos começar editando nosso modelo de produto
+
 * create.produto.dto.ts
 ```
 export interface CreateProdutoDto {
@@ -159,7 +156,7 @@ export interface CreateProdutoDto {
     preco: number
 }
 ```
-##### 5.2 entrar na src/produto/dto/
+
 * update-produto.dto.ts
 ```
 import { CreateProdutoDto } from './create-produto.dto';
@@ -168,7 +165,9 @@ export interface UpdateProdutoDto extends Partial<CreateProdutoDto> {
     id: number
 }
 ```
-##### 5.3 entrar na src/produto/
+
+> ##### 7.2 Atualizando Modulo
+
 * produto.module.ts
 ```
 import { Module } from '@nestjs/common';
@@ -183,6 +182,9 @@ import { DbModule } from 'src/db/db.module';
 })
 export class ProdutoModule {}
 ```
+
+> ##### 7.3 Atualizando Modulo
+
 * produto.service.ts
 ```
 import { Injectable } from '@nestjs/common';
@@ -225,7 +227,7 @@ export class ProdutoService {
 }
 ```
 
-##### 5.4 atualizar src/app.module.ts
+##### 7.4 atualizar src/app.module.ts
 ```
 import { Module } from '@nestjs/common';
 import { DbModule } from './db/db.module';
@@ -239,7 +241,29 @@ import { ProdutoModule } from './produto/produto.module';
 export class AppModule {}
 ```
 
-> #### 6. rodando o projeto
+> #### 8. NestJS rodando o projeto
 ```
 npm run start:dev
+```
+
+#### Observações Opcionais
+
+* Conexão com mysql
+```
+npx prisma init --datasource-provider mysql
+```
+
+<i> Nesse exemplo de conexão com mysql usuario:root,sem-senha@localhost:3306/banco__criado__ou__criar </i>
+```
+DATABASE_URL="mysql://root:@localhost:3306/api__02"
+```
+
+* exemplo 2
+```
+DATABASE_URL="mysql://root:@localhost:3306/appi0101"
+```
+
+<b> Opcional caso queira dar uma olhadinha usando o prisma studio </b>
+``` ok Prisma
+npx prisma studio
 ```
