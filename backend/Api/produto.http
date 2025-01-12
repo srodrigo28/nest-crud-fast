@@ -8,7 +8,7 @@ POST http://localhost:3001/produto
 Content-Type: application/json
 
 {
-    "nome": "Camisa",
+    "nome": "Alesandra Oliveira",
     "descricao": "camisa jeans 2024",
     "preco": 120
 }

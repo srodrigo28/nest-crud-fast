@@ -14,3 +14,7 @@ npm i bcrypt
 npm i -D @types/bcrypt
 
 ### criando entidade nova
+
+#### Ref.
+
+https://www.youtube.com/watch?v=iP7-1syNTY0
