@@ -26,3 +26,17 @@ model Produto{
 
   @@map("produto")
 }
+
+model Users{
+  id Int @id @default(autoincrement())
+  
+  nome String @unique
+  email String @unique
+  senha String
+  token String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}

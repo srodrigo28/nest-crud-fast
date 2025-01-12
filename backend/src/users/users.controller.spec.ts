@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
+import { hash } from 'crypto';
 
 describe('UsersController', () => {
   let controller: UsersController;
