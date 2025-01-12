@@ -32,6 +32,11 @@ export class ProdutoService {
 
   // listando somente 1
   findOne(id: number) {
+    const user = this.prismaService.users.findUnique({ where: {id} })
+    if(!user){
+      throw new errorNotFound("Esse produto não existe ", 'id',  id );
+    }
+
     return this.prismaService.produto.findUnique({
       where: { id }
     });

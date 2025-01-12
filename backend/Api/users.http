@@ -1,0 +1,37 @@
+GET http://localhost:3001/users
+
+###
+GET http://localhost:3001/users/1
+
+###
+POST http://localhost:3001/users
+Content-Type: application/json
+
+{
+    "nome": "Amanda",
+    "email": "amanda@gmail.com",
+    "senha": "123"
+}
+
+###
+
+PATCH  http://localhost:3001/users/1
+Content-Type: application/json
+
+{
+    "nome": "coca2 cola lata"
+}
+
+###
+DELETE   http://localhost:3001/users/11
+Content-Type: application/json
+
+
+###
+POST http://localhost:3001/users/login
+Content-Type: application/json
+
+{
+    "email": "camila@gmail.com",
+    "senha": "1234"
+}

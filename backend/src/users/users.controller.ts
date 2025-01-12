@@ -31,4 +31,11 @@ export class UsersController {
   remove(@Param('id') id: string) {
     return this.usersService.remove(+id);
   }
+
+  // verifica usuário e senha
+  @Post('login')
+  sigIng(@Body() {email, senha}){
+    return this.usersService.singIn(email, senha)
+  }
 }
+

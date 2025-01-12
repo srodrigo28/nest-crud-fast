@@ -1,14 +1,19 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/db/prisma.service';
 import { errorUserExistis } from './erros/errorUserExistis';
 import { errorEmailExistis } from './erros/errorEmailExistis';
 import { errorNotFound } from 'src/errors/errorNotFound';
+import { compare } from 'bcrypt';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly prismaService: PrismaService){}
+  constructor(
+    private readonly prismaService: PrismaService, 
+    private readonly jwtService: JwtService
+  ){}
 
   // inserir com validação
   async create(createUserDto: CreateUserDto) {
@@ -41,6 +46,11 @@ export class UsersService {
 
   // buscar por id
   findOne(id: number) {
+    const user = this.prismaService.users.findUnique({ where: {id} })
+    if(!user){
+      throw new errorNotFound("Esse usuário não existe ", 'id',  id );
+    }
+    
     return this.prismaService.users.findUnique({
       where: { id }
     });
@@ -54,7 +64,7 @@ export class UsersService {
     })
 
     if(!existeUser){
-      throw new errorUserExistis( `Produto ${id} não encontrado` ) 
+      throw new errorUserExistis( `Usuário ${id} não encontrado` ) 
     }
     
     return this.prismaService.users.update({
@@ -78,4 +88,28 @@ export class UsersService {
       where: { id }
     })
   }
+
+  async singIn( 
+    email: string, 
+    senha: string 
+    ) : Promise<{ access_token: string }> {
+    const user = await this.prismaService.users.findFirst({ where: { email } });
+    
+    if(!user){
+      throw new UnauthorizedException();
+    }
+    
+    const senhaMatch = compare(senha, user.senha);
+    
+    if(!senhaMatch){
+      throw new UnauthorizedException();
+    }
+
+    const payload = { id: user.id, nome: user.nome, email: user.email };
+
+    return {
+      access_token: this.jwtService.sign(payload)
+    };
+  }
+  
 }

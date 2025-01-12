@@ -9,7 +9,7 @@ export class filterGeral implements ExceptionFilter{
         const response = ctx.getResponse<Response>();
 
         response.status(501).json({
-            statusCode: 409,
+            statusCode: 404,
             message: exception.message
         });
     }
