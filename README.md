@@ -1,270 +1,119 @@
-> #### 1. NestJS Criar aplicação
-* criando projeto no terminal
-```
-npx nest new backend
+<div align="center">  
+
+# 🚀 Nest CRUD Fast
+
+![NestJS](https://img.shields.io/badge/nestjs-%23E0234E.svg?style=for-the-badge&logo=nestjs&logoColor=white)
+![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
+![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white)
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)
+
+</div>
+
+> Um boilerplate Fullstack robusto e performático para acelerar o seu desenvolvimento.
+
+**Nest CRUD Fast** é uma base sólida para aplicações modernas, combinando o poder do **NestJS** no backend com a interatividade do **Next.js 15** no frontend. Projetado para escalabilidade, tipagem forte e experiência de desenvolvedor superior.
+
+
+## ✨ Funcionalidades
+
+- 🔌 **API RESTful com NestJS**: Arquitetura modular e escalável.
+- 🛡️ **Type-Safe Database**: Integração completa com **Prisma ORM** (SQLite/MySQL).
+- 🎨 **Frontend Moderno**: Interface construída com **Next.js 15** e **React 19**.
+- 💅 **Estilização Premium**: Design responsivo e customizável com **Tailwind CSS**.
+- 🔐 **Autenticação Pronta**: Estrutura preparada para JWT e Bcrypt.
+- 📝 **CRUD Completo**: Exemplos práticos de operações de banco de dados.
+
+
+
+## 🛠️ Tech Stack
+
+<div align="center">
+
+| Backend | Frontend | Ferramentas |
+|---------|----------|-------------|
+| ![NestJS](https://img.shields.io/badge/-NestJS-E0234E?logo=nestjs&logoColor=white) | ![Next.js](https://img.shields.io/badge/-Next.js-000000?logo=next.js&logoColor=white) | ![Prisma](https://img.shields.io/badge/-Prisma-2D3748?logo=prisma&logoColor=white) |
+| ![TypeScript](https://img.shields.io/badge/-TypeScript-3178C6?logo=typescript&logoColor=white) | ![React](https://img.shields.io/badge/-React-61DAFB?logo=react&logoColor=white) | ![NPM](https://img.shields.io/badge/-NPM-CB3837?logo=npm&logoColor=white) |
+| ![Node.js](https://img.shields.io/badge/-Node.js-339933?logo=node.js&logoColor=white) | ![Tailwind](https://img.shields.io/badge/-Tailwind-38B2AC?logo=tailwindcss&logoColor=white) | ![Git](https://img.shields.io/badge/-Git-F05032?logo=git&logoColor=white) |
+
+</div>
+
+## 🚀 Começando
+
+Siga os passos abaixo para rodar o projeto localmente.
+
+### Pré-requisitos
+
+Certifique-se de ter instalado:
+- [Node.js](https://nodejs.org/) (v20 ou superior recomendado)
+- [NPM](https://www.npmjs.com/) ou PNPM
+
+### 1. Instalação
+
+Clone o repositório e instale as dependências:
+
+```bash
+# Clone o repositório
+git clone https://github.com/seu-usuario/nest-crud-fast.git
+
+# Entre na pasta do projeto
+cd nest-crud-fast
 ```
 
-* entrar no diretório
-```
+#### Backend
+
+```bash
 cd backend
-```
+npm install
 
-* No diretório src/ apagar os arquivos
-* app.controller.spec.ts
-* app.service.ts
-* app.controller.ts
-
-> #### 2. NestJS ( atualizar )
-
-* src/app.module.ts
-```
-import { Module } from '@nestjs/common';
-
-@Module({
-  imports: [],
-  controllers: [],
-  providers: [],
-})
-export class AppModule {}
-```
-
-> #### 3. NestJS Permitir o cors
-
-* No diretório src/main.ts
-```
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {cors: true});
-  await app.listen(process.env.PORT ?? 3000);
-}
-bootstrap();
-```
-
-> #### 4. Prisma ORM Instalar
-
-* <b>4.1</b> criando o projeto cd apps/backend
-```ok
-npm install prisma -D
-```
-
-* <b>4.2</b> Methodo de conexão banco de Dados 
-* Iniciando projeto sqlite
-```
-npx prisma init --datasource-provider sqlite
-```
-
-* <b>4.3</b> Dentro da pasta prisma/shema.prisma
-``` ok
-model Produto{
-  id        Int @id @default(autoincrement())
-  nome      String @unique
-  descricao String 
-  preco     Float
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@map("produto")
-}
-```
-
-* <b>4.3.1 Observação </b> Arquivo .env gerando 
-* Automáticamente configurar de acordo com o banco
-
-> ##### 4.3.2 <b> Opcional Caso der Error </b>
-``` ok Prisma
-npm i prisma@6.1.0 -D --silent
-```
-
-> ##### 4.4 Rodando nosso primeiro migrate criando a tabela
-``` ok
+# Configurar o banco de dados (SQLite por padrão)
 npx prisma migrate dev
 ```
 
-> #### 5. NestJS criando no nosso modulo de conexão
+#### Frontend
 
-* <b>5.1</b> criando conexão com o banco de dados
-```
-npx nest g module db
-```
-
-> <b>5.2</b> * entrar na pasta db
-```
-cd src/db
+```bash
+cd ../frontend
+npm install
 ```
 
-> <b>5.3</b> * criar o service para o prisma
-```
-npx nest g service prisma --flat --no-spec
-```
+### 2. Configuração de Ambiente (.env)
 
-* <b>5.4</b> entrar na src/db/db.module.ts editar
-```
-import { Module } from '@nestjs/common';
-import { PrismaService } from './prisma.service';
+O projeto já vem pré-configurado, mas você pode ajustar as variáveis de ambiente conforme necessário.
 
-@Module({
-  providers: [PrismaService],
-  exports: [PrismaService]
-})
-export class DbModule {}
+**Backend (`backend/.env`):**
+```env
+DATABASE_URL="file:./dev.db"
+# DATABASE_URL="mysql://root:password@localhost:3306/mydb" # Para MySQL
 ```
 
-> ##### 5.5 Editar o Service do Prisma 
+### 3. Rodando a Aplicação
 
-* <b>5.5.1</b> entrar na src/db/prisma.service.ts
-```
-import { Global, Injectable, OnModuleInit } from '@nestjs/common';
-import { PrismaClient } from '@prisma/client';
+Abra dois terminais para rodar o backend e o frontend simultaneamente.
 
-@Global()
-@Injectable()
-export class PrismaService extends PrismaClient implements OnModuleInit {
-    async onModuleInit() {
-        await this.$connect();
-    }
-}
-```
-
-> #### 6. NestJS Criar e Implentar Resource Produto
-
-* voltar para o diretorio do projeto
-```
-cd .. cd ..
-```
-
-* agora sim gerar o resource
-```
-npx nest g resource produto --no-spec
-```
-
-* Agora foi gerado automáticamente os arquivos 
-* <b> ( Apagar a pasta Entity ) </b>
-* <b> ( Não mexer )  produto.controller.ts, </b>
-* produto.module.ts,
-* produto.service.ts
-* Dto
-
-> ##### 6.1 Vamos começar editando nosso modelo de produto
-
-* create.produto.dto.ts
-```
-export interface CreateProdutoDto {
-    nome: string
-    descricao: string
-    preco: number
-}
-```
-
-* update-produto.dto.ts
-```
-import { CreateProdutoDto } from './create-produto.dto';
-
-export interface UpdateProdutoDto extends Partial<CreateProdutoDto> {
-    id: number
-}
-```
-
-> ##### 6.2 Atualizando Modulo
-
-* produto.module.ts
-```
-import { Module } from '@nestjs/common';
-import { ProdutoService } from './produto.service';
-import { ProdutoController } from './produto.controller';
-import { DbModule } from 'src/db/db.module';
-
-@Module({
-  imports: [DbModule],
-  controllers: [ProdutoController],
-  providers: [ProdutoService],
-})
-export class ProdutoModule {}
-```
-
-> ##### 6.3 Atualizando Service Produto
-
-* produto.service.ts
-```
-import { Injectable } from '@nestjs/common';
-import { CreateProdutoDto } from './dto/create-produto.dto';
-import { UpdateProdutoDto } from './dto/update-produto.dto';
-import { PrismaService } from 'src/db/prisma.service';
-
-@Injectable()
-export class ProdutoService {
-  constructor( private readonly prismaService: PrismaService ){}
-
-  create(createProdutoDto: CreateProdutoDto) {
-    return this.prismaService.produto.create({
-      data: createProdutoDto,
-    });
-  }
-
-  findAll() {
-    return this.prismaService.produto.findMany();
-  }
-
-  findOne(id: number) {
-    return this.prismaService.produto.findUnique({
-      where: { id },
-    });
-  }
-
-  update(id: number, updateProdutoDto: UpdateProdutoDto) {
-    return this.prismaService.produto.update({
-      where: { id },
-      data: updateProdutoDto,
-    });
-  }
-
-  remove(id: number) {
-    return this.prismaService.produto.delete({
-      where: { id },
-    });
-  }
-}
-```
-
-> ##### 6.4 atualizar src/app.module.ts
-```
-import { Module } from '@nestjs/common';
-import { DbModule } from './db/db.module';
-import { ProdutoModule } from './produto/produto.module';
-
-@Module({
-  imports: [DbModule, ProdutoModule],
-  controllers: [],
-  providers: [],
-})
-export class AppModule {}
-```
-
-> #### 7. NestJS rodando o projeto
-```
+**Terminal 1 (Backend):**
+```bash
+cd backend
 npm run start:dev
+# O servidor iniciará em http://localhost:3000
 ```
 
-> #### 8. Observações Opcionais
-
-* Conexão com mysql
-```
-npx prisma init --datasource-provider mysql
-```
-
-<i> Nesse exemplo de conexão com mysql usuario:root,sem-senha@localhost:3306/banco__criado__ou__criar </i>
-```
-DATABASE_URL="mysql://root:@localhost:3306/api__02"
+**Terminal 2 (Frontend):**
+```bash
+cd frontend
+npm run dev
+# O frontend iniciará em http://localhost:3001 (ou porta disponível)
 ```
 
-* exemplo 2
-```
-DATABASE_URL="mysql://root:@localhost:3306/appi0101"
-```
+---
 
-<b> Opcional caso queira dar uma olhadinha usando o prisma studio </b>
-``` ok Prisma
-npx prisma studio
-```
+## 📄 Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+---
+
+<div align="center">
+  <sub>Desenvolvido com ❤️ por <a href="https://github.com/seu-usuario">Seu Nome</a></sub>
+</div>
